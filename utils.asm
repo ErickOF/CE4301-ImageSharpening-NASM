@@ -1,6 +1,4 @@
-;------------------------------------------
 ; int slen(String message)
-; String length calculation function
 slen:
     push    ebx             ; New context into the context stack
     mov     ebx, eax        ; Both point to the same memory segment
@@ -15,6 +13,27 @@ slen_end:
     sub     eax, ebx        ; End - initial => length
     pop     ebx             ; Pop stack context value into ebx
     ret                     ; return length
+
+
+; string sinput();
+sinput:
+    push    edx             ; New context into the context stack
+    push    ecx             ; New context into the context stack
+    push    ebx             ; New context into the context stack
+    push    eax             ; New context into the context stack
+
+    mov     edx, 32         ; Bytes to read
+    mov     ecx, strinput   ; cin >> strinput
+    mov     ebx, 0          ; File descriptor (stdin)
+    mov     eax, 3          ; System call (sys_read)
+    int     0x80            ; Call kernel
+
+    pop     eax             ; Pop stack context value into ebx
+    pop     ebx             ; Pop stack context value into ebx
+    pop     ecx             ; Pop stack context value into ecx
+    pop     edx             ; Pop stack context value into edx
+
+    ret
 
 
 ; void sprint(String message)
