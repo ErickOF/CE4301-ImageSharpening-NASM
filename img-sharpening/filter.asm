@@ -10,7 +10,8 @@ SECTION .data
     new_line             db      '', 0Ah, 0h
 
 SECTION .bss
-    strinput:            resb    32
+    strinput:            resb      32
+    img_content:         resb    1024
 
 SECTION .text
     global  _start
