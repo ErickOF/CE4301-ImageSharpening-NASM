@@ -1,1 +1,1 @@
-# Computer Architectur I - Image Sharpening
+# Computer Architecture I - Image Sharpening
