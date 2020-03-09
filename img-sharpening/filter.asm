@@ -1,37 +1,72 @@
 ; 0h  = '\0'
 ; 0Ah = '\n'
-%include 'utils.asm' ; #include <utils.h>
+%include 'stdio.asm' ; #include <stdio.h>
 
 
 SECTION .data
-    input_img_path_str   db      'Ingrese la ruta de la imagen a abrir: ', 0h
-    output_img_path_str  db      'Ingrese la ruta donde desea guardar la imagen: ', 0h
-    empty_str            db      '', 0h
-    new_line             db      '', 0Ah, 0h
+    input_img_path_str   db      'Ruta de la imagen (BMP): ', 0h
+    output_img_path_str  db      'Ruta donde desea guardar la imagen (BMP): ', 0h
+    width_msg            db      'Ancho de la imagen: ', 0h
+    height_msg           db      'Alto de la imagen: ', 0h
+    newline              db      0ah, 0h
+    emptystr             db      0h
+    buffer     times 256 db      0h
+    input_img  times 256 db      0h
+    output_img times 256 db      0h
+    width      times  32 db      0h
+    height     times  32 db      0h
 
-SECTION .bss
-    strinput:            resb      32
-    img_content:         resb    1024
 
 SECTION .text
     global  _start
- 
+
+
 _start:
-    mov     eax, input_img_path_str
-    call    sprint                ; sprint(input_img_path)
+    ; Asking for input image
+    mov     rsi, input_img_path_str
+    call    sprint
 
-    call    sinput                ; input()
+    call    scanf
+    mov     rsi, [buffer]
+    mov     [input_img], rsi
+    
+    mov     rsi, input_img
+    call    sprintln
 
-    mov     eax, strinput
-    call    sprint                ; sprintln(input_img_path)
+    ; Asking for output image
+    mov     rsi, output_img_path_str
+    call    sprint
 
-    mov     eax, output_img_path_str
-    call    sprint                ; sprint(output_img_path)
+    call    scanf
+    mov     rsi, [buffer]
+    mov     [output_img], rsi
+    
+    mov     rsi, output_img
+    call    sprintln
 
-    call    sinput                ; input()
+    ; Asking for image width
+    mov     rsi, width_msg
+    call    sprint
 
-    mov     eax, strinput
-    call    sprint                ; sprintln(output_img_path)
- 
-    call    exit                  ; exit()
+    call    scanf
+    call    str2int
+
+    mov     [width], rax
+    mov     rax, [width]
+
+    call    iprint
+
+    ; Asking for image height
+    mov     rsi, height_msg
+    call    sprint
+
+    call    scanf
+    call    str2int
+
+    mov     [height], rax
+    mov     rax, [height]
+
+    call    iprint
+
+    call    exit
     ret
