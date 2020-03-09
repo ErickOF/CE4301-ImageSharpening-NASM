@@ -4,6 +4,10 @@
 
 
 SECTION .data
+    cmd        times 100 db 'python3 imshow.py -o ', 0x0
+    cmd2                 db ' -s ', 0x0
+    lencmd               equ $ - cmd
+    lencmd2              equ $ - cmd2
     input_img_path_str   db      'Ruta de la imagen (BMP): ', 0h
     output_img_path_str  db      'Ruta donde desea guardar la imagen (BMP): ', 0h
     width_msg            db      'Ancho de la imagen: ', 0h
@@ -33,40 +37,36 @@ _start:
     mov     rsi, input_img
     call    sprintln
 
-    ; Asking for output image
-    mov     rsi, output_img_path_str
-    call    sprint
-
-    call    scanf
-    mov     rsi, [buffer]
-    mov     [output_img], rsi
-    
-    mov     rsi, output_img
-    call    sprintln
-
     ; Asking for image width
-    mov     rsi, width_msg
-    call    sprint
+    ; mov     rsi, width_msg
+    ; call    sprint
 
-    call    scanf
-    call    str2int
+    ; call    scanf
+    ; call    str2int
 
-    mov     [width], rax
-    mov     rax, [width]
+    ; mov     [width], rax
+    ; mov     rax, [width]
 
-    call    iprint
+    ; call    iprint
 
     ; Asking for image height
-    mov     rsi, height_msg
-    call    sprint
+    ; mov     rsi, height_msg
+    ; call    sprint
 
-    call    scanf
-    call    str2int
+    ; call    scanf
+    ; call    str2int
 
-    mov     [height], rax
-    mov     rax, [height]
+    ; mov     [height], rax
+    ; mov     rax, [height]
 
-    call    iprint
+    ; call    iprint
+
+    push    dword [input_img]
+    pop     dword [cmd + lencmd]
+
+    mov     rsi, cmd
+    call    sprintln
 
     call    exit
+
     ret
