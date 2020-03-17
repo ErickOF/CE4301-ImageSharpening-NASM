@@ -34,7 +34,7 @@ def img_to_8bit(img):
         The image converted in an 8-bit image.
     """
     # Convert depending of data type
-    if img.dtype == np.float64 or img.dtype == np.float32 or img.dtype == np.float16 or img.dtype == np.float8:
+    if img.dtype == np.float64 or img.dtype == np.float32 or img.dtype == np.float16:
         img = 256 * img
     elif img.dtype == np.int16:
         img = img / 2
