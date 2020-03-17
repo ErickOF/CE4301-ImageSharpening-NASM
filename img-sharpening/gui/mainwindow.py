@@ -1,12 +1,14 @@
-from os.path import expanduser
+import os
 from PyQt5 import QtWidgets, QtGui, uic
+
+from utils.filemanager import FileManager
 
 
 class MainWindow(QtWidgets.QMainWindow):
     """Main Window class
     """
     def __init__(self):
-        self.imgpath = expanduser('~')
+        self.imgpath = os.path.expanduser('~')
         # Call the inherited classes __init__ method
         super(MainWindow, self).__init__()
         # Load the .ui file
@@ -35,15 +37,19 @@ class MainWindow(QtWidgets.QMainWindow):
                                     'tabOverSharpening')
 
     def __btnOpenImgOnClick(self):
+        # Get image path
         imgpath = QtWidgets.QFileDialog.getOpenFileName(self, 'Open image',
                             '', 'Image files (*.bmp *.jpg *.png)')
         self.imgpath = imgpath[0]
-
+        # Set image text in text edit
         self.teImage.setText(self.imgpath)
-
+        # Show image
         lbOriginal = self.tabOriginal.findChild(QtWidgets.QLabel, 'lbOriginal')
         lbOriginal.setPixmap(QtGui.QPixmap(self.imgpath))
 
     def __btnFilterOnClick(self):
-        pass
+        # Create temp dir to store temp files
+        os.mkdir('temp')
+        # Convert loaded image in a file
+        FileManager().img2file(self.imgpath)
 
