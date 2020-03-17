@@ -1,3 +1,6 @@
+### Project ###
+img-sharpening/gui/__pycache__
+
 ### Assembler ###
 *.exe
 *.o
