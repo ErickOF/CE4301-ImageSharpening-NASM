@@ -14,7 +14,7 @@
    <string>Image Sharpening by ErickOF v1.0.0</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="teImage">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnOpenImg">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -37,7 +37,7 @@
      <string>Select Image</string>
     </property>
    </widget>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="tabImages">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -46,11 +46,11 @@
       <height>570</height>
      </rect>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="tabOriginal">
      <attribute name="title">
       <string>Original</string>
      </attribute>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="QLabel" name="lbOriginal">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -61,11 +61,11 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="tabSharpening">
      <attribute name="title">
       <string>Sharpening</string>
      </attribute>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="QLabel" name="lbSharpening">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -76,11 +76,11 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="tabOverSharpening">
      <attribute name="title">
       <string>Oversharpening</string>
      </attribute>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="QLabel" name="lbOverSharpening">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -92,7 +92,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="btnFilter">
     <property name="geometry">
      <rect>
       <x>650</x>
