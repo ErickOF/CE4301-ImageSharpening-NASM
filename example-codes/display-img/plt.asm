@@ -1,7 +1,7 @@
 extern	system
 
 SECTION .DATA
-    msg: db 'python3 imshow.py -o lechuza_gray.bmp -s lechuza_gray.bmp -os lechuza_gray.bmp -c gray', 0x0
+    msg: db 'python3 imshow.py -o lechuza_gray.bmp -s lechuza.bmp', 0x0
 
 SECTION .TEXT
     global main

@@ -21,12 +21,9 @@ def parse(argv):
         key = argv[i]
         if key in ['-o', '--oimg']:
             parms['original'] = io.imread(argv[i + 1], as_gray=True)
-        elif key in ['-s', '--simg']:
-            parms['sharpening'] = io.imread(argv[i + 1], as_gray=True)
-        elif key in ['-os', '--osimg']:
-            parms['oversharpening'] = io.imread(argv[i + 1], as_gray=True)
-        elif key in ['-c', '--color']:
-            parms['color'] = argv[i + 1]
+            parms['sharpening'] = io.imread('sharpening_' + argv[i + 1], as_gray=True)
+            parms['oversharpening'] = io.imread('oversharpening_' + argv[i + 1], as_gray=True)
+            parms['color'] = 'g'
     return parms
 
 
