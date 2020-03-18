@@ -1,4 +1,3 @@
-nasm -f elf64 main.asm -o main.o
-#ld -m elf_x86_64 main.o -o main
-python call.py build_ext --inplace
-python -c "import pynasm;pynasm.function()"
+nasm -f elf64 entry.asm -o entry.o
+python3 setup.py build_ext --inplace
+python3 main.py

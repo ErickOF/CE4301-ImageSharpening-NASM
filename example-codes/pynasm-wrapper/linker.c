@@ -1,24 +1,26 @@
 #include <Python.h>
-#include <stdio.h>
 
 
-void function(void);
+void _function(void);
 
 static PyObject*
 pynasm_function(PyObject* self, PyObject* args) {
     if (!PyArg_ParseTuple(args, "")) {
         return NULL;
     }
-    function();
+
+    _function();
     Py_RETURN_NONE;
 }
 
-static PyMethodDef PyNasmMethods[] = {
+static PyMethodDef
+PyNasmMethods[] = {
     {"function", pynasm_function, METH_VARARGS, "Execute NASM code"},
     {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef PyNasmModule = {
+static struct PyModuleDef
+PyNasmModule = {
     PyModuleDef_HEAD_INIT,
     "pynasm", /* name of module */
     NULL,     /* module documentation, may be NULL */
