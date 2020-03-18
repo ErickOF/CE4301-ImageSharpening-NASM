@@ -16,6 +16,10 @@ def img_to_file(img, img_path):
     filename = img_path[:-4] + '.txt'
     # Open image
     with open(filename, 'wb') as file:
+        rows, cols = img.shape
+        file.write(rows.to_bytes(2, byteorder='big'))
+        file.write(cols.to_bytes(2, byteorder='big'))
+
         for i in range(len(img)):
             for j in range(len(img[i])):
                 # Convert image to 8-bit and write in file
@@ -42,7 +46,7 @@ def img_to_8bit(img):
 
 
 if __name__ == '__main__':
-    img_name = input('Image path: ')
+    img_name = 'lechuza.jpg'
     img = io.imread(img_name, as_gray=True)
     img = img_to_8bit(img)
 
