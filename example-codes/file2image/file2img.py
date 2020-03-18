@@ -15,7 +15,7 @@ def file2image(filepath):
             for j in range(cols):
                 row.append(int.from_bytes(content[4 + i * cols + j:4 + i * cols + j + 1], byteorder='big', signed=False))
             img.append(np.array(row).astype(np.uint8))
-    plt.imsave(filepath[:-4] + '.jpg', img)
+        img.save(filepath[:-4] + '.jpg')
 
 
 if __name__ == "__main__":
