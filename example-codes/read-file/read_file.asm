@@ -23,7 +23,7 @@ section .data
 section .bss
     ; Resolution: 2048x2048
     fileBuffer:     resq 4194304
-    bufferSize:     equ  4194304
+    bufferSize:     equ  4
 
 section .rodata
     msg1:           db   "Bytes readed=",0
@@ -58,13 +58,14 @@ _start:
     call    print
     
     pop     rax
-
-    mov     rax, [fileBuffer ]
     
     call    printnumber
     call    printnewline
 
-    mov
+    mov     rax, [fileBuffer]
+
+    call    printnumber
+    call    printnewline
 
     ; Close file Descriptor
     mov     rax, 3                  ; SYS_CLOSE
@@ -72,7 +73,7 @@ _start:
     syscall
 
     ; Print message Readed
-    mov     rsi, fileBuffer
-    call    println
+    ;mov     rsi, fileBuffer
+    ;call    println
 
     call    exit
