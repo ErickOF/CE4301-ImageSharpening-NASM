@@ -1,5 +1,6 @@
 ### Project ###
 img-sharpening/gui/__pycache__
+img-sharpening/temp
 
 ### Assembler ###
 *.exe
@@ -139,7 +140,6 @@ qrc_*.cpp
 ui_*.h
 *.qmlc
 *.jsc
-Makefile*
 *build-*
 
 # Qt unit tests
