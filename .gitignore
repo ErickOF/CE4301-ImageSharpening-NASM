@@ -1,6 +1,7 @@
 ### Project ###
 img-sharpening/gui/__pycache__
 img-sharpening/temp
+img-sharpening/asm/filter
 
 ### Assembler ###
 *.exe
