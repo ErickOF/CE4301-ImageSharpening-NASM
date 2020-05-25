@@ -1,5 +1,4 @@
 ### Project ###
-img-sharpening/gui/__pycache__
 img-sharpening/temp
 img-sharpening/asm/filter
 
@@ -11,7 +10,7 @@ img-sharpening/asm/filter
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*__pycache__/
 *.py[cod]
 *$py.class
 

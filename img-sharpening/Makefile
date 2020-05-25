@@ -46,6 +46,7 @@ run:
 		echo "\e[1;34mBuilding app....\033[0m"; \
 		nasm -f elf64 ${APP_NAME}.asm; \
 		ld -m elf_x86_64 ${APP_NAME}.o -o ${APP_NAME}; \
+		rm ${APP_NAME}.o; \
 		echo "\e[1;34mBuild has been successfully completed.\033[0m"; \
 	fi
 
