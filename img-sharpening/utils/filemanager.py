@@ -50,14 +50,28 @@ class FileManager:
         img = self.img_to_8bit(img)
 
         # Filename to save encoded image
-        filename = './temp/original.txt'
+        filename1 = './temp/original.txt'
+        filename2 = './temp/sharpening.txt'
+        filename3 = './temp/oversharpening.txt'
 
-        # Open image
-        with open(filename, 'wb+') as file:
-            for i in range(len(img)):
-                for j in range(len(img[i])):
-                    # Convert image to 8-bit and write in file
-                    file.write(int(img[i][j]).to_bytes(1, byteorder='big'))
+        # Open file to write
+        file1 = open(filename1, 'wb+')
+        file2 = open(filename2, 'wb+')
+        file3 = open(filename3, 'wb+')
+
+        for i in range(len(img)):
+            for j in range(len(img[i])):
+                # Convert image to 8-bit and write in file
+                pixel = int(img[i][j]).to_bytes(1, byteorder='big')
+                # Write in file
+                file1.write(pixel)
+                file2.write(pixel)
+                file3.write(pixel)
+
+        # Close files
+        file1.close()
+        file2.close()
+        file3.close()
 
     def img_to_8bit(self, img):
         """Convert an image in a 8-bit image.
