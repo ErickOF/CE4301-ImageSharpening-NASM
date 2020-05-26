@@ -16,9 +16,9 @@ def file2image(filepath):
             img.append(np.array(row).astype(np.uint8))
         img = np.array(img, dtype=np.uint8)
         img = Image.fromarray(img)
-        img.save(filepath[:-4] + '.jpg')
+        img.save(filepath[:-4] + '.bmp')
 
 
 if __name__ == "__main__":
-    filepath = 'lechuza.txt'
+    filepath = 'test.txt'
     file2image(filepath)

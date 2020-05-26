@@ -46,7 +46,7 @@ def img_to_8bit(img):
 
 
 if __name__ == '__main__':
-    img_name = 'lechuza.jpg'
+    img_name = 'test.bmp'
     img = io.imread(img_name, as_gray=True)
     img = img_to_8bit(img)
 

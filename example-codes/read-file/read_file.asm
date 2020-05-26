@@ -15,7 +15,7 @@ global _start
 %include 'functions.asm'
 
 section .data
-    fileName:       db   "lechuza.txt", 0x0
+    fileName:       db   "original.txt", 0x0
     ; open file and read and write mode
     fileFlags:      dq   002o
     fileDescriptor: dq   0
