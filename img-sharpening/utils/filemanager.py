@@ -6,7 +6,7 @@ from skimage import io
 class FileManager:
     """Class to manage all files and conversions related with these
     """
-    def file2image(self, filepath):
+    def file2img(self, filepath):
         """Convert a txt file a image, encoded in 8-bit
 
         Parameters:
@@ -35,7 +35,9 @@ class FileManager:
 
             # Convert to image and save
             img = Image.fromarray(np.array(img, dtype=np.uint8))
-            img.save(filepath[:-4] + '.jpg')
+            img.save(filepath[:-4] + '.bmp')
+        
+        return img
 
     def img2file(self, img_path):
         """Convert image to a txt file, encoded in 8-bit.
@@ -47,7 +49,7 @@ class FileManager:
         """
         # Load image
         img = io.imread(img_path, as_gray=True)
-        img = self.img_to_8bit(img)
+        img = self.__img_to_8bit(img)
 
         # Filename to save encoded image
         filename1 = './temp/original.txt'
@@ -59,8 +61,21 @@ class FileManager:
         file2 = open(filename2, 'wb+')
         file3 = open(filename3, 'wb+')
 
-        for i in range(len(img)):
-            for j in range(len(img[i])):
+        # Image dimension
+        rows, cols = img.shape
+        rows_bytes = rows.to_bytes(2, byteorder='big')
+        cols_bytes = cols.to_bytes(2, byteorder='big')
+
+        # Write dimensions
+        file1.write(rows_bytes)
+        file1.write(cols_bytes)
+        file2.write(rows_bytes)
+        file2.write(cols_bytes)
+        file3.write(rows_bytes)
+        file3.write(cols_bytes)
+
+        for i in range(rows):
+            for j in range(cols):
                 # Convert image to 8-bit and write in file
                 pixel = int(img[i][j]).to_bytes(1, byteorder='big')
                 # Write in file
@@ -73,7 +88,7 @@ class FileManager:
         file2.close()
         file3.close()
 
-    def img_to_8bit(self, img):
+    def __img_to_8bit(self, img):
         """Convert an image in a 8-bit image.
 
         Parameters

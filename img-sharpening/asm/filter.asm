@@ -1,19 +1,131 @@
 ; 0h  = '\0'
 ; 0Ah = '\n'
-%include './asm/utils/stdio.asm' ; #include <stdio.h>
+; %include './asm/utils/stdio.asm' ; #include <stdio.h>
+%include './asm/utils/functions.asm'
 
+global _start
 
-SECTION .data
-    newline              db      0ah, 0h
-    emptystr             db      0h
-    buffer     times 256 db      0h
+section .data
+    fileName:       db   "./../temp/original.txt", 0x0
+    ; open file and read and write mode
+    fileFlags:      dq   002o
+    fileDescriptor: dq   0
 
+section .bss
+    ; Resolution: 2048x2048
+    fileBuffer:     resq 4194304
+    bufferSize:     equ  8
 
-SECTION .text
-    global  _start
+section .rodata
+    msg1:           db   "Bytes readed=",0
+    msg2:           db   "File Descriptor=",0
 
-
+section .text
 _start:
-    call    exit
+    mov     rax, 2                  ; SYS_OPEN
+    mov     rdi, fileName           ; const char *filename
+    mov     rsi, [fileFlags]        ; int flags
+    syscall
 
-    ret
+    mov     [fileDescriptor], rax
+    mov     rsi, msg2
+    call    print
+
+    mov     rax, [fileDescriptor]
+    call    printnumber
+    call    printnewline
+
+    ; Read a message to the created file
+    mov     rax, 0                  ; SYS_READ
+    mov     rdi, [fileDescriptor]
+    mov     rsi, fileBuffer
+    mov     rdx, bufferSize         ; Bytes to read
+    syscall
+
+    ; Print the number of bytes Readed
+    push    rax
+    
+    mov     rsi, msg1
+    call    print
+    
+    pop     rax
+    
+    call    printnumber
+    call    printnewline
+
+    push    rax
+    ; index = 0
+    mov     rsi, 0x0
+
+    ; Rows
+    mov     ax, [fileBuffer + rsi]
+    ror     ax, 8
+    movzx   rax, ax
+
+    call    printnumber
+    call    printnewline
+
+    add     rsi, 0x2                ; index += 2
+
+    ; Cols
+    mov     ax, [fileBuffer + rsi]
+    ror     ax, 8
+    movzx   rax, ax
+
+    call    printnumber
+    call    printnewline
+
+    add     rsi, 0x2                ; index += 2
+
+    ; img[0][0];
+    mov     al, [fileBuffer + rsi]
+    ror     al, 4
+    movzx   rax, al
+
+    call    printnumber
+    call    printnewline
+
+    inc     rsi                     ; index++;
+
+    ; img[0][1];
+    mov     al, [fileBuffer + rsi]
+    ror     al, 4
+    movzx   rax, al
+
+    call    printnumber
+    call    printnewline
+
+    inc     rsi                     ; index++;
+
+    ; img[0][2];
+    mov     al, [fileBuffer + rsi]
+    ror     al, 4
+    movzx   rax, al
+
+    call    printnumber
+    call    printnewline
+
+    inc     rsi                     ; index++;
+
+    ; img[0][3];
+    mov     al, [fileBuffer + rsi]
+    ror     al, 4
+    movzx   rax, al
+
+    call    printnumber
+    call    printnewline
+
+    inc     rsi                     ; index++;
+
+    pop     rax
+
+    ; Close file Descriptor
+    mov     rax, 3                  ; SYS_CLOSE
+    mov     rdi, [fileDescriptor]
+    syscall
+
+    ; Print message Readed
+    ;mov     rsi, fileBuffer
+    ;call    println
+
+    call    exit
