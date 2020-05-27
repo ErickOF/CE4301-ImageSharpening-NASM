@@ -23,7 +23,7 @@ section .data
 section .bss
     ; Resolution: 2048x2048
     fileBuffer:     resq 4194304
-    bufferSize:     equ  8
+    bufferSize:     equ  4194304
 
 section .rodata
     msg1:           db   "Bytes readed=",0
@@ -87,8 +87,7 @@ _start:
     add     rsi, 0x2                ; index += 2
 
     ; img[0][0];
-    mov     al, [fileBuffer + rsi]
-    ror     al, 4
+    mov byte al, [fileBuffer + rsi]
     movzx   rax, al
 
     call    printnumber
@@ -97,8 +96,7 @@ _start:
     inc     rsi                     ; index++;
 
     ; img[0][1];
-    mov     al, [fileBuffer + rsi]
-    ror     al, 4
+    mov byte al, [fileBuffer + rsi]
     movzx   rax, al
 
     call    printnumber
@@ -107,8 +105,7 @@ _start:
     inc     rsi                     ; index++;
 
     ; img[0][2];
-    mov     al, [fileBuffer + rsi]
-    ror     al, 4
+    mov byte al, [fileBuffer + rsi]
     movzx   rax, al
 
     call    printnumber
@@ -117,8 +114,7 @@ _start:
     inc     rsi                     ; index++;
 
     ; img[0][3];
-    mov     al, [fileBuffer + rsi]
-    ror     al, 4
+    mov byte al, [fileBuffer + rsi]
     movzx   rax, al
 
     call    printnumber
