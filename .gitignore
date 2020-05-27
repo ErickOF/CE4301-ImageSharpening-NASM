@@ -1,6 +1,7 @@
 ### Project ###
+img-sharpening/asm/oversharpening
+img-sharpening/asm/sharpening
 img-sharpening/temp
-img-sharpening/asm/filter
 
 ### Assembler ###
 *.exe

@@ -106,3 +106,18 @@ class FileManager:
         elif img.dtype == np.int16:
             img = img // 2
         return img.astype(np.uint8)
+
+    def rgb2gray(self, img_path):
+        """Convert rgb image to gray scale and save it in the temp directory.
+
+        Paramters:
+        ----------------------------------------------------------------------
+        img_path: str
+            Image file name.
+        """
+        # Load image
+        img = io.imread(img_path, as_gray=True)
+        # Encode to 8-bit
+        img = self.__img_to_8bit(img)
+        img = Image.fromarray(np.array(img, dtype=np.uint8))
+        img.save('./temp/original.bmp')

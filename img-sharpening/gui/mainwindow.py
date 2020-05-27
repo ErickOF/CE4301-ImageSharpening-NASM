@@ -49,9 +49,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.imgpath = imgpath[0]
         # Set image text in text edit
         self.teImage.setText(self.imgpath)
+        FileManager().rgb2gray(self.imgpath)
         # Show image
         lbOriginal = self.tabOriginal.findChild(QtWidgets.QLabel, 'lbOriginal')
-        lbOriginal.setPixmap(QtGui.QPixmap(self.imgpath))
+        lbOriginal.setPixmap(QtGui.QPixmap('./temp/original.bmp'))
 
     def __filter(self):
         # Check if folder exists
@@ -60,10 +61,19 @@ class MainWindow(QtWidgets.QMainWindow):
             os.mkdir(self.__TEMP_DIR)
 
         # Convert loaded image in a file
+        print('Converting image to file...')
         FileManager().img2file(self.imgpath)
 
+        print('Applying sharpening kernel...')
+        os.system('cd asm && ./sharpening')
+        print('Converting to an image...')
         # Convert processing images
         sharpening = FileManager().file2img('./temp/sharpening.txt')
+
+        print('Applying oversharpening kernel...')
+        os.system('cd asm && ./oversharpening')
+        print('Converting to an image...')
+        # Convert processing images
         unsharpening = FileManager().file2img('./temp/oversharpening.txt')
 
         # Set images
