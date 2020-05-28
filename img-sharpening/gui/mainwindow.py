@@ -1,5 +1,5 @@
 import os
-from PyQt5 import QtWidgets, QtGui, uic
+from PyQt5 import QtWidgets, QtGui, QtCore, uic
 import threading
 
 from utils.filemanager import FileManager
@@ -51,8 +51,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.teImage.setText(self.imgpath)
         FileManager().rgb2gray(self.imgpath)
         # Show image
+        original = QtGui.QPixmap('./temp/original.bmp').scaled(640, 480, QtCore.Qt.KeepAspectRatio)
         lbOriginal = self.tabOriginal.findChild(QtWidgets.QLabel, 'lbOriginal')
-        lbOriginal.setPixmap(QtGui.QPixmap('./temp/original.bmp'))
+        lbOriginal.setPixmap(QtGui.QPixmap(original))
 
     def __filter(self):
         # Check if folder exists
@@ -68,19 +69,22 @@ class MainWindow(QtWidgets.QMainWindow):
         os.system('cd asm && ./sharpening')
         print('Converting to an image...')
         # Convert processing images
-        sharpening = FileManager().file2img('./temp/sharpening.txt')
+        FileManager().file2img('./temp/sharpening.txt')
 
         print('Applying oversharpening kernel...')
         os.system('cd asm && ./oversharpening')
         print('Converting to an image...')
         # Convert processing images
-        unsharpening = FileManager().file2img('./temp/oversharpening.txt')
+        FileManager().file2img('./temp/oversharpening.txt')
 
         # Set images
+        sharpening = QtGui.QPixmap('./temp/sharpening.bmp').scaled(640, 480, QtCore.Qt.KeepAspectRatio)
         lbSharpening = self.tabSharpening.findChild(QtWidgets.QLabel, 'lbSharpening')
-        lbSharpening.setPixmap(QtGui.QPixmap('./temp/sharpening.bmp'))
+        lbSharpening.setPixmap(sharpening)
+
+        oversharpening = QtGui.QPixmap('./temp/oversharpening.bmp').scaled(640, 480, QtCore.Qt.KeepAspectRatio)
         lbOverSharpening = self.tabOverSharpening.findChild(QtWidgets.QLabel, 'lbOverSharpening')
-        lbOverSharpening.setPixmap(QtGui.QPixmap('./temp/oversharpening.bmp'))
+        lbOverSharpening.setPixmap(oversharpening)
 
         self.lbStatus.setText('Ready!')
 

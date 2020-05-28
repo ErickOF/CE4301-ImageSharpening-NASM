@@ -16,23 +16,23 @@ section .data
 
 
 section .bss
-    ; Max resolution: 2048x2048 in 8-bits mode = 4194304 bytes
-    ; Max rows and cols: 2048
-    ;   - Number of bits to represent 2048: 2^12 -> 12 bits
-    ;   - Number of bytes to represent 12 bits: 2 bytes
+    ; Max resolution: 4096x2160 in 8-bits mode = 8847360 bytes
+    ; Max rows and cols: 4096
+    ;   - Number of bits to represent 4096: 2^13 -> 13 bits
+    ;   - Number of bytes to represent 13 bits: 2 bytes
     ;
     ; Total bytes = rows_bytes + cols_bytes + img_bytes
-    ;             = 2 + 2 + 4194304 = 4194308
+    ;             = 2 + 2 + 8847360 = 8847364
     ;
     ; Bytes organization:
     ;   - rows -> file[0:1]
     ;   - cols -> file[2:3]
-    ;   - img  -> file[4:4194307]
+    ;   - img  -> file[4:8847364]
     ; Reserve memory to read the file
-    original_file_buffer:       resq    4194308
-    sharpening_file_buffer:     resq    4194308
+    original_file_buffer:       resq    8847364
+    sharpening_file_buffer:     resq    8847364
     ; Amount of reserved memory
-    buffer_size:                equ     4194308
+    buffer_size:                equ     8847364
     ; Reserved memory to rows and cols
     rows                        resq    2
     cols                        resq    2
